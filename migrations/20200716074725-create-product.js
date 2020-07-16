@@ -10,15 +10,20 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       price: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       imageUrl: {
         type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
       },
       description: {
         type: Sequelize.TEXT,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

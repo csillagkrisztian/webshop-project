@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   category.init(
     {
-      name: DataTypes.STRING,
-      imageUrl: DataTypes.STRING,
-      description: DataTypes.TEXT,
+      name: { type: DataTypes.STRING, allowNull: false },
+      imageUrl: { type: DataTypes.STRING, allowNull: false },
+      description: { type: DataTypes.TEXT, allowNull: false },
     },
     {
       sequelize,

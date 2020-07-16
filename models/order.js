@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   order.init(
     {
-      customerId: DataTypes.INTEGER,
-      productId: DataTypes.INTEGER,
+      customerId: { type: DataTypes.INTEGER, allowNull: false },
+      productId: { type: DataTypes.INTEGER, allowNull: false },
     },
     {
       sequelize,
