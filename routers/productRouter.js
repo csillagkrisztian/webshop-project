@@ -50,8 +50,8 @@ router.patch(
   validation(Product, productRParam, "product"),
   async (req, res, next) => {
     try {
-      const product = await req.product;
-      const updatedProduct = await product.update(req.body);
+      const product = req.product;
+      const updatedProduct = product.update(req.body);
       res.send(updatedProduct);
     } catch (error) {}
   }
@@ -76,7 +76,7 @@ router.delete(
   validation(Product, productRParam, "product"),
   async (req, res, next) => {
     try {
-      const product = await req.product;
+      const product = req.product;
       product.destroy();
       res.send({ message: `Product ID ${req.params.productId} deleted` });
     } catch (error) {}
