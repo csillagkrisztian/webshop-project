@@ -48,8 +48,8 @@ router.patch(
   validation(Category, categoryRParam, "category"),
   async (req, res, next) => {
     try {
-      const category = await req.category;
-      const updatedCategory = await category.update(req.body);
+      const category = req.category;
+      const updatedCategory = category.update(req.body);
       res.send(updatedCategory);
     } catch (error) {
       next(error);
@@ -62,7 +62,7 @@ router.delete(
   validation(Category, categoryRParam, "category"),
   async (req, res, next) => {
     try {
-      const category = await req.category;
+      const category = req.category;
       category.destroy();
       res.send({ message: `Category ID ${req.params.categoryId} deleted` });
     } catch (error) {
