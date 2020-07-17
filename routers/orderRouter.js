@@ -61,8 +61,8 @@ router.patch(
   validation(Order, orderRParam, "order"),
   async (req, res, next) => {
     try {
-      const order = await req.order;
-      const updatedOrder = await order.update(req.body);
+      const order = req.order;
+      const updatedOrder = order.update(req.body);
       res.send(updatedOrder);
     } catch (error) {
       next(error);
@@ -89,7 +89,7 @@ router.delete(
   validation(Order, orderRParam, "order"),
   async (req, res, next) => {
     try {
-      const order = await req.order;
+      const order = req.order;
       order.destroy();
       res.send({ message: `Order ID ${req.params.orderId} deleted` });
     } catch (error) {
