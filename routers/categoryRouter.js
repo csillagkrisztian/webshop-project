@@ -43,4 +43,46 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.patch(
+  `/:${categoryRParam}`,
+  validation(Category, categoryRParam, "category"),
+  async (req, res, next) => {
+    try {
+      const category = await req.category;
+      const updatedCategory = await category.update(req.body);
+      res.send(updatedCategory);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.delete(
+  `/:${categoryRParam}`,
+  validation(Category, categoryRParam, "category"),
+  async (req, res, next) => {
+    try {
+      const category = await req.category;
+      category.destroy();
+      res.send({ message: `Category ID ${req.params.categoryId} deleted` });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.delete("/", async (req, res, next) => {
+  try {
+    const categories = await Category.findAll();
+    if (categories && categories.length === 0) {
+      res.send({ message: "no categories to delete" });
+    } else {
+      categories.forEach((c) => c.destroy());
+      res.send({ message: "all categories deleted" });
+    }
+  } catch (error) {
+    next(e);
+  }
+});
+
 module.exports = router;
