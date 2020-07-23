@@ -59,7 +59,7 @@ router.patch(
   async (req, res, next) => {
     try {
       const customer = req.customer;
-      const updatedCustomer = customer.update(req.body);
+      const updatedCustomer = await customer.update(req.body);
       res.send(updatedCustomer);
     } catch (error) {
       next(error);
@@ -73,7 +73,8 @@ router.delete("/", async (req, res, next) => {
     if (customers && customers.length === 0) {
       res.send({ message: "no users to delete" });
     } else {
-      customers.forEach((c) => c.destroy());
+      const deleteCustomers = customers.map(async (c) => await c.destroy());
+      await Promise.all(deleteCustomers);
       res.send({ message: "all users deleted" });
     }
   } catch (error) {
@@ -87,7 +88,7 @@ router.delete(
   async (req, res, next) => {
     try {
       const customer = req.customer;
-      customer.destroy();
+      await customer.destroy();
       res.send({ message: `Customer ID ${req.customer.id} deleted` });
     } catch (error) {
       next(error);

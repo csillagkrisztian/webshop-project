@@ -51,7 +51,7 @@ router.patch(
   async (req, res, next) => {
     try {
       const product = req.product;
-      const updatedProduct = product.update(req.body);
+      const updatedProduct = await product.update(req.body);
       res.send(updatedProduct);
     } catch (error) {}
   }
@@ -63,7 +63,8 @@ router.delete("/", async (req, res, next) => {
     if (products && products.length === 0) {
       res.send({ message: "no products to delete" });
     } else {
-      products.forEach((p) => p.destroy());
+      const deleteProducts = products.map(async (c) => await c.destroy());
+      await Promise.all(deleteProducts);
       res.send({ message: "all products deleted" });
     }
   } catch (error) {
@@ -77,7 +78,7 @@ router.delete(
   async (req, res, next) => {
     try {
       const product = req.product;
-      product.destroy();
+      await product.destroy();
       res.send({ message: `Product ID ${req.params.productId} deleted` });
     } catch (error) {}
   }

@@ -62,7 +62,7 @@ router.patch(
   async (req, res, next) => {
     try {
       const order = req.order;
-      const updatedOrder = order.update(req.body);
+      const updatedOrder = await order.update(req.body);
       res.send(updatedOrder);
     } catch (error) {
       next(error);
@@ -76,7 +76,8 @@ router.delete("/", async (req, res, next) => {
     if (orders && orders.length === 0) {
       res.send({ message: "No orders to delete" });
     } else {
-      orders.forEach((o) => o.destroy());
+      const deleteOrders = orders.map(async (c) => await c.destroy());
+      await Promise.all(deleteOrders);
       res.send({ message: `All orders were deleted!` });
     }
   } catch (error) {
@@ -90,7 +91,7 @@ router.delete(
   async (req, res, next) => {
     try {
       const order = req.order;
-      order.destroy();
+      await order.destroy();
       res.send({ message: `Order ID ${req.params.orderId} deleted` });
     } catch (error) {
       next(error);

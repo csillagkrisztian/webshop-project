@@ -49,7 +49,7 @@ router.patch(
   async (req, res, next) => {
     try {
       const category = req.category;
-      const updatedCategory = category.update(req.body);
+      const updatedCategory = await category.update(req.body);
       res.send(updatedCategory);
     } catch (error) {
       next(error);
@@ -63,7 +63,7 @@ router.delete(
   async (req, res, next) => {
     try {
       const category = req.category;
-      category.destroy();
+      await category.destroy();
       res.send({ message: `Category ID ${req.params.categoryId} deleted` });
     } catch (error) {
       next(error);
@@ -77,7 +77,8 @@ router.delete("/", async (req, res, next) => {
     if (categories && categories.length === 0) {
       res.send({ message: "no categories to delete" });
     } else {
-      categories.forEach((c) => c.destroy());
+      const deleteCategories = categories.map(async (c) => await c.destroy());
+      await Promise.all(deleteCategories);
       res.send({ message: "all categories deleted" });
     }
   } catch (error) {
