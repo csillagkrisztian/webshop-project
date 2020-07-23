@@ -11,6 +11,9 @@ const customerRParam = "customerId";
 router.get("/", async (req, res, next) => {
   try {
     const customers = await Customer.findAll();
+    if (!customers.length) {
+      res.send({ message: "No customers found" });
+    }
     res.send(customers);
   } catch (error) {
     next(error);

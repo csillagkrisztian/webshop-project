@@ -21,6 +21,9 @@ router.get("/", async (req, res, next) => {
         },
       ],
     });
+    if (!orders.length) {
+      res.send({ message: "No orders were found" });
+    }
     res.send(orders);
   } catch (error) {
     next(error);

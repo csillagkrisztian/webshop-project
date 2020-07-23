@@ -32,7 +32,7 @@ module.exports = {
         {
           name: "Dark Souls 2 SOTFS Remastered",
           price: "79.99$",
-          categoryId: "2",
+          categoryId: "3",
           imageUrl: "ihavebeenwaiting.jpg",
           description: "Lorem ipsum orem",
           createdAt: new Date(),
@@ -41,7 +41,7 @@ module.exports = {
         {
           name: "Bloodborne Kart",
           price: "29.99$",
-          categoryId: "2",
+          categoryId: "3",
           imageUrl: "dreamscometrue.jpg",
           description: "Lorem ipsum orem",
           createdAt: new Date(),
@@ -56,16 +56,16 @@ module.exports = {
         {
           name: "Les Paul Angel",
           price: "754.99$",
-          categoryId: "3",
+          categoryId: "2",
           imageUrl: "glorious.jpg",
           description: "Lorem ipsum orem",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          name: "A flue that has seen things",
+          name: "A flute that has seen things",
           price: "99.99$",
-          categoryId: "3",
+          categoryId: "2",
           imageUrl: "stickyflute.jpg",
           description: "Lorem ipsum orem",
           createdAt: new Date(),

@@ -9,6 +9,9 @@ const categoryRParam = "categoryId";
 router.get("/", async (req, res, next) => {
   try {
     const category = await Category.findAll();
+    if (!category.length) {
+      res.send({ message: "No categories were found" });
+    }
     res.send(category);
   } catch (error) {
     next(error);

@@ -9,6 +9,9 @@ const productRParam = "productId";
 router.get("/", async (req, res, next) => {
   try {
     const products = await Product.findAll();
+    if (!products.length) {
+      res.send({ message: "No products were found" });
+    }
     res.json(products);
   } catch (error) {
     next(error);
