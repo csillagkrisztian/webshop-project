@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const Customer = require("../models").customer;
 const { validation } = require("../middleware/validation");
-const Order = require("../models").order;
+const { auth } = require("../middleware/auth");
 const Product = require("../models").product;
+const bcrypt = require("bcrypt");
 
 // the route parameter of the customer
 const customerRParam = "customerId";
@@ -49,8 +50,18 @@ router.get(
 
 router.post("/", async (req, res, next) => {
   try {
-    const newCustomer = await Customer.create(req.body);
-    res.json(newCustomer);
+    const { email, password } = req.body;
+    if (!email || !password) {
+      res.status(400).send("missing parameters");
+    } else {
+      const newCustomer = await Customer.create({
+        ...req.body,
+        // Here, when handing down the password to the create method we hash it.
+        password: bcrypt.hashSync(password, 10),
+      });
+
+      res.json(newCustomer);
+    }
   } catch (error) {
     next(error);
   }
