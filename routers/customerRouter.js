@@ -69,7 +69,7 @@ router.post("/", async (req, res, next) => {
 
 router.patch(
   `/:${customerRParam}`,
-  validation(Customer, customerRParam, "customer"),
+  validation(Customer, auth, customerRParam, "customer"),
   async (req, res, next) => {
     try {
       const customer = req.customer;
@@ -81,7 +81,7 @@ router.patch(
   }
 );
 
-router.delete("/", async (req, res, next) => {
+router.delete("/", auth, async (req, res, next) => {
   try {
     const customers = await Customer.findAll();
     if (customers && customers.length === 0) {
@@ -98,7 +98,7 @@ router.delete("/", async (req, res, next) => {
 
 router.delete(
   `/:${customerRParam}`,
-  validation(Customer, customerRParam, "customer"),
+  validation(Customer, auth, customerRParam, "customer"),
   async (req, res, next) => {
     try {
       const customer = req.customer;
