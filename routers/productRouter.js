@@ -8,11 +8,13 @@ const productRParam = "productId";
 
 router.get("/", async (req, res, next) => {
   try {
-    const products = await Product.findAll();
-    if (!products.length) {
+    const limit = req.query.limit || 25;
+    const offset = req.query.offset || 0;
+    const products = await Product.findAndCountAll({ limit, offset });
+    if (!products) {
       res.send({ message: "No products were found" });
     }
-    res.json(products);
+    res.json({ products: products.rows, total: products.count });
   } catch (error) {
     next(error);
   }
