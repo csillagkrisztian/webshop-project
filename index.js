@@ -7,7 +7,7 @@ const orderRouter = require("./routers/orderRouter");
 const authRouter = require("./routers/authRouter");
 const cors = require("cors");
 
-app.set("port", process.env.port || 4000);
+app.set("port", process.env.PORT || 4000);
 
 app.use(cors());
 app.use(express.json());
